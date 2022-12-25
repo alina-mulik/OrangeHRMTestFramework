@@ -2,19 +2,13 @@
 {
     public static class GenericPages
     {
-        public static AddUserPage AddUserPage => GetPage<AddUserPage>();
+        public static EmployeeManagementPage EmployeeManagementPage => GetPage<EmployeeManagementPage>();
 
-        public static AddEmployeePage AddEmployeePage => GetPage<AddEmployeePage>();
-
-        public static EmployeeListPage EmployeeListPage => GetPage<EmployeeListPage>();
-
-        public static EditPersonalDetailsPage EditPersonalDetailsPage => GetPage<EditPersonalDetailsPage>();
+        public static ChangeEmployeeProfilePicturePage ChangeEmployeeProfilePicturePage => GetPage<ChangeEmployeeProfilePicturePage>();
 
         public static UserManagementPage UserManagementPage => GetPage<UserManagementPage>();
 
         public static SendPasswordResetPage SendPasswordResetPage => GetPage<SendPasswordResetPage>();
-
-        public static ResetPasswordPage ResetPasswordPage => GetPage<ResetPasswordPage>();
 
         public static LoginPage LoginPage => GetPage<LoginPage>();
 

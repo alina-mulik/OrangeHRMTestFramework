@@ -15,6 +15,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
             var listOfColumnValues = new List<string>();
             var columnId = GetColumnId(columnName);
             var cellsByColumnId = _tableElement.FindElements(By.XPath($"//div[@role='cell'][{columnId}]"));
+            _tableElement.ScrollIntoView();
 
             foreach (var cell in cellsByColumnId)
             {

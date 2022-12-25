@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Common.Extensions;
-using OrangeHRMTestFramework.Data.Constants;
 using OrangeHRMTestFramework.Data;
+using OrangeHRMTestFramework.Data.Constants;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
-using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
+using OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
@@ -29,9 +29,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             Assert.AreEqual(OrangeMessages.OrangeFooterText, actualFooterText);
 
             // Enter invalid data to UserName and Password inputs
-            loginPage.EnterDataToUsernameInput(randomUserName);
-            loginPage.EnterDataToPasswordInput(randomPassword);
-            loginPage.ClickLoginButton();
+            var loginForm = GenericForms.LoginForm;
+            loginForm.EnterDataToUsernameInput(randomUserName);
+            loginForm.EnterDataToPasswordInput(randomPassword);
+            loginForm.ClickLoginButton();
 
             // Check that invalid login alert is displayed
             Assert.IsTrue(loginPage.IsInvalidCredentialsAlertDisplayed());
@@ -54,7 +55,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             Assert.AreEqual(TestSettings.OrangeResetPasswordPageUrl, resetPasswordPageUrl);
 
             // Enter data to User Name input and click Reset Password button
-            var resetPasswordPage = GenericPages.ResetPasswordPage;
+            var resetPasswordPage = GenericForms.ResetPasswordForm;
             resetPasswordPage.EnterDataToUsernameInput(randomUserName);
             resetPasswordPage.ClickResetPasswordButton();
 
@@ -64,8 +65,8 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var resetPasswordSentText = GenericPages.SendPasswordResetPage.GetTextOfResetPasswordSentTitle();
             Assert.AreEqual(OrangeMessages.ResetPasswordSuccessMessage, resetPasswordSentText);
 
-            // Check Footer text on the Send Password Reset page
-            var actualFooterText = GenericPages.BaseOrangePage.GetOrangeFooterText();
+            // Check Footer text
+            var actualFooterText = GenericPages.LoginPage.GetOrangeFooterText();
             Assert.AreEqual(OrangeMessages.OrangeFooterText, actualFooterText);
         }
     }

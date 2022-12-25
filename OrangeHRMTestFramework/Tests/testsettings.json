@@ -10,8 +10,7 @@
       "OrangeUserManagementPage": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers",
       "OrangeAddEmployeePage": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee",
       "OrangeEmployeeListPage": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList",
-      "OrangeEditEmployeePage": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPersonalDetails/empNumber/{0}",
-      "OrangeEditEmployeeProfileImagePage": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewPhotograph/empNumber/{0}"
+      "OrangeBasePage": "https://opensource-demo.orangehrmlive.com"
     }
   },
   "TestData": {

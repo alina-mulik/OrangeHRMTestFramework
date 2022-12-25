@@ -16,8 +16,7 @@ namespace OrangeHRMTestFramework.Data
         public static string OrangeDashboardUrl { get; set; }
         public static string OrangeAddEmployeePageUrl { get; set; }
         public static string OrangeEmployeeListPageUrl { get; set; }
-        public static string OrangeEditEmployeePageUrl { get; set; }
-        public static string OrangeEditEmployeeProfileImagePageUrl { get; set; }
+        public static string OrangeBasePageUrl { get; set; }
 
         public static IConfiguration TestConfiguration { get; } = new ConfigurationBuilder().AddJsonFile(".\\Tests\\testsettings.json").Build();
 
@@ -35,8 +34,7 @@ namespace OrangeHRMTestFramework.Data
             OrangeAddUserPageUrl = TestConfiguration["Common:OrangeHRMUrls:OrangeAddUserPage"];
             OrangeAddEmployeePageUrl = TestConfiguration["Common:OrangeHRMUrls:OrangeAddEmployeePage"];
             OrangeEmployeeListPageUrl = TestConfiguration["Common:OrangeHRMUrls:OrangeEmployeeListPage"];
-            OrangeEditEmployeePageUrl = TestConfiguration["Common:OrangeHRMUrls:OrangeEditEmployeePage"];
-            OrangeEditEmployeeProfileImagePageUrl = TestConfiguration["Common:OrangeHRMUrls:OrangeEditEmployeeProfileImagePage"];
+            OrangeBasePageUrl = TestConfiguration["Common:OrangeHRMUrls:OrangeBasePage"];
         }
     }
 }

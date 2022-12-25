@@ -2,7 +2,6 @@
 using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Common.Extensions;
 using OrangeHRMTestFramework.Common.WebElements;
-using OrangeHRMTestFramework.Data;
 
 namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
@@ -55,15 +54,8 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 
         private void ClickTopNavSubCategory(string? categoryName) => new OrangeWebElement(By.XPath(string.Format(_topNavSubCategoryXPath, categoryName))).ClickWithScroll();
 
-        //public int CountAllLeftNavCategories() => AllLeftNavMainCategories().Count();
-
-        //private IReadOnlyCollection<IWebElement> AllLeftNavMainCategories()
-        //{
-        //    var mainCategoriesElement = new OrangeWebElement(By.XPath("//ul[@class='oxd-main-menu']"));
-        //    var allLeftNavMainCategoryElements = mainCategoriesElement.FindElements(By.XPath("//ul[@class='oxd-main-menu']//li"));
-
-        //    return allLeftNavMainCategoryElements;
-        //}
+        public void WaitUntilSuccessMessageDisplayed() => WebDriverFactory.Driver
+            .GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => _successToastMessage.Displayed);
 
         private OrangeWebElement GetTopNavCategoryWithSubCategoriesElement(string categoryName) => new OrangeWebElement(By.XPath(string.Format(_topNavCategoryWithSubCategoryXPath, categoryName)));
     }

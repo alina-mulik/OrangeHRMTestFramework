@@ -8,6 +8,8 @@
         public const string SuccessfullyCreatedToastMessageText = "Successfully Saved";
         public const string SuccessfullyDeletedToastMessageText = "Successfully Deleted";
         public const string SuccessfullyUpdatedToastMessageText = "Successfully Updated";
+        public const string RequiredWarningMessage = "Required";
+        public const string AlreadyExistsWarningMessage = "Already exists";
     }
 }
 

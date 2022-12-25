@@ -1,6 +1,4 @@
-﻿using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
-
-namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Filters
+﻿namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Filters
 {
     public static class GenericFilters
     {
