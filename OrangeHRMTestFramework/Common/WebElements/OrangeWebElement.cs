@@ -85,9 +85,7 @@ namespace OrangeHRMTestFramework.Common.WebElements
         public void Submit() => WebElement.Submit();
 
         // method to scroll element into view using JavaScript
-        public void ScrollIntoView() => WebDriverFactory.JavaScriptExecutor.ExecuteScript(
-            "arguments[0].scrollIntoView(({behavior: \"smooth\", block: \"center\", inline: \"nearest\"}))",
-            WebElement);
+        public void ScrollIntoView() => WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView(false)", WebElement);
 
         // method to get value of class attribute
         public string GetValueOfClassAttribute() => GetAttribute("class");

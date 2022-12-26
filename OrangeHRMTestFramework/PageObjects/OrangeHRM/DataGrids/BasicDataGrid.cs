@@ -48,6 +48,26 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
             editButtonByRowNumber.ClickWithScroll();
         }
 
+        public void SortDescByColumnName(string columnName)
+        {
+            var listOfColumnNamesWithSortOption = new List<string>();
+            var columnNamesWithSortingXPath = "//i[contains(concat('', @class, ''), 'oxd-table-header-sort-icon')]//ancestor::div[@role='columnheader']";
+            var sortIconXpath = "(//div[@role='columnheader']//i[contains(concat('', @class, ''), 'oxd-table-header-sort-icon')])[{0}]";
+            var sortDescDropdownOption = new OrangeWebElement(By.XPath("(//div[contains(concat('', @class, ''), '--active')]//li[@class='oxd-table-header-sort-dropdown-item']/span)[2]"));
+            var listOfColumnElementsWithSorting = _tableElement.FindElements(By.XPath(columnNamesWithSortingXPath));
+
+            foreach (var column in listOfColumnElementsWithSorting)
+            {
+                listOfColumnNamesWithSortOption.Add(column.Text);
+            }
+
+            var columnId = listOfColumnNamesWithSortOption.IndexOf(columnName) + 1;
+            var sortElement = new OrangeWebElement(By.XPath(string.Format(sortIconXpath, columnId)));
+            sortElement.ClickWithScroll();
+            sortDescDropdownOption.Click();
+            WaitUntillDataGridIsDisplayed();
+        }
+
         private int GetColumnId(string columnName)
         {
             var columnsXpath = "//div[@role='columnheader']";

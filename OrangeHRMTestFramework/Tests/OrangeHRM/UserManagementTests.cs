@@ -173,6 +173,25 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             Assert.IsTrue(isWarningDisplayed);
         }
 
+        [Test]
+        public void SortUserListByUserNameDescTest()
+        {
+            // Get cell values from the DataGrid before sorting
+            var userNamesListBeforeSorting = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
+
+            // Get expected result by  sorting list of values desc
+            var expectedResultList = userNamesListBeforeSorting.OrderByDescending(x => x);
+
+            // Sort Usernames on the Data Grid by Username desc
+            GenericDataGrids.BasicDataGrid.SortDescByColumnName(UserManagementFieldNames.Username);
+
+            // Get cell values from the DataGrid after sorting
+            var userNamesListAfterSorting = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
+
+            // Check that values in the Grid are really sorted by desc
+            Assert.AreEqual(expectedResultList, userNamesListAfterSorting);
+        }
+
         private string AddTestEmployeeAndGetName()
         {
             var firstName = RandomHelper.GetRandomString(7);
