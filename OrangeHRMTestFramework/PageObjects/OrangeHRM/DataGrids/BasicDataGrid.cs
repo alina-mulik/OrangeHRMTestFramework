@@ -52,7 +52,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
             }
         }
 
-        public string GetValueByColumnNameAndRowIndex(string columnName, int rowNumber)
+        public string GetValueByColumnNameAndRowNumber(string columnName, int rowNumber)
         {
             WaitUntillDataGridIsDisplayed();
             var listOfColumnValues = GetCellValuesByColumnName(columnName);
@@ -61,15 +61,9 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
             return resultValue;
         }
 
-        public void ClickDeleteButtonByRowNumber(int rowNumber)
-        {
-            ClickActionButtonByRowIndex(1, rowNumber);
-        }
+        public void ClickDeleteButtonByRowNumber(int rowNumber) => ClickActionButtonByRowNumber(1, rowNumber);
 
-        public void ClickEditButtonByRowNumber(int rowNumber)
-        {
-            ClickActionButtonByRowIndex(2, rowNumber);
-        }
+        public void ClickEditButtonByRowNumber(int rowNumber) => ClickActionButtonByRowNumber(2, rowNumber);
 
         public void SortDescByColumnName(string columnName)
         {
@@ -104,13 +98,10 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
         private void WaitUntillDataGridIsDisplayed()
         {
             var rowElement = new OrangeWebElement(By.XPath("//div[@role='row']"));
-            if (!rowElement.Displayed)
-            {
-                rowElement.WaitUntilDisplayed();
-            }
+            rowElement.WaitUntilDisplayed();
         }
 
-        private void ClickActionButtonByRowIndex(int action, int rowInex)
+        private void ClickActionButtonByRowNumber(int action, int rowInex)
         {
             var commonRowButtonLocator = new OrangeWebElement(By.XPath($"(//div[@role='row']//div[@role='cell'][last()]//button[{action}])[{rowInex}]"));
             commonRowButtonLocator.WaitUntilDisplayed();
@@ -125,6 +116,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
             {
                 return true;
             }
+
             return false;
         }
     }

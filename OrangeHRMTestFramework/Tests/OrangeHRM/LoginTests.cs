@@ -3,7 +3,6 @@ using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Data.Constants;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
-using OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
@@ -27,7 +26,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             Assert.AreEqual(OrangeMessages.OrangeFooterText, actualFooterText);
 
             // Enter invalid data to UserName and Password inputs
-            var loginForm = GenericForms.LoginForm;
+            var loginForm = LoginPage.LoginTab;
             loginForm.EnterDataToUsernameInput(randomUserName);
             loginForm.EnterDataToPasswordInput(randomPassword);
             loginForm.ClickLoginButton();
@@ -49,7 +48,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.LoginPage.ClickForgotPasswordLink();
 
             // Enter data to User Name input and click Reset Password button on Reset Password Page
-            var resetPasswordPage = GenericForms.ResetPasswordForm;
+            var resetPasswordPage = ResetPasswordPage.ResetPasswordTab;
             resetPasswordPage.EnterDataToUsernameInput(randomUserName);
             resetPasswordPage.ClickResetPasswordButton();
 

@@ -4,7 +4,6 @@ using OrangeHRMTestFramework.Data.Enums;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.Models;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
-using OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
@@ -44,12 +43,12 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Enter data to all inputs
-            var addUserForm = GenericForms.AddUserForm;
+            var addUserForm = AddUserPage.AddUserTab;
             addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
             addUserForm.EnterDataToUsernameInput(userName);
             addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
-            addUserForm.SelectValueInDropdown(UserManagementFieldNames.Status, Status.Enabled);
-            addUserForm.SelectValueInDropdown(UserManagementFieldNames.UserRole, UserRole.Admin);
+            addUserForm.SelectValueInStatusDropdown(Status.Enabled);
+            addUserForm.SelectValueInUserRoleDropdown(UserRole.Admin);
             addUserForm.ClickSaveButtonWithWait();
 
             // Check success toast message
@@ -60,18 +59,18 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
 
             // Filter newly-created user by Username
-            UserManagementPage.UserManagementFilter.EnterValueToUserNameFilterInput(userName);
+            UserManagementPage.UserManagementFilter.EnterValueToUserNameFilterTextBox(userName);
             UserManagementPage.UserManagementFilter.ClickSearchButton();
 
             // Verify entries in the grid after filtering, check counts and field values
             var listOfUserNames = UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
             Assert.AreEqual(1, listOfUserNames.Count);
             Assert.AreEqual(userName, listOfUserNames[0]);
-            var employeeNameFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(UserManagementFieldNames.EmployeeName, 1);
+            var employeeNameFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.EmployeeName, 1);
             Assert.AreEqual(_employeeName, employeeNameFromGrid);
-            var statusFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(UserManagementFieldNames.Status, 1);
+            var statusFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.Status, 1);
             Assert.AreEqual(statusEnabled, statusFromGrid);
-            var userRoleFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(UserManagementFieldNames.UserRole, 1);
+            var userRoleFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.UserRole, 1);
             Assert.AreEqual(userRoleAdmin, userRoleFromGrid);
         }
 
@@ -122,7 +121,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var listOfUserNames = UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
             Assert.AreEqual(1, listOfUserNames.Count);
             Assert.AreEqual(userName, listOfUserNames[0]);
-            var employeeNameFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(UserManagementFieldNames.EmployeeName, 1);
+            var employeeNameFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.EmployeeName, 1);
             Assert.AreEqual(_employeeName, employeeNameFromGrid);
         }
 
@@ -133,10 +132,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Click Save button without entering any data to inputs
-            GenericForms.AddUserForm.ClickSaveButtonWithWait();
+            AddUserPage.AddUserTab.ClickSaveButtonWithWait();
 
             // Check that required message is displayed under each input
-            var warningMessagesDisplayed = GenericForms.AddUserForm.GetWarningMessagesText();
+            var warningMessagesDisplayed = AddUserPage.AddUserTab.GetWarningMessagesText();
 
             // Check Text and Counts of warnings
             Assert.AreEqual(6, warningMessagesDisplayed.Count);
@@ -159,12 +158,12 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Enter the same data as for the first user
-            var addUserForm = GenericForms.AddUserForm;
+            var addUserForm = AddUserPage.AddUserTab;
             addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
             addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
             addUserForm.EnterDataToUsernameInput(userName);
-            addUserForm.SelectValueInDropdown(UserManagementFieldNames.Status, Status.Enabled);
-            addUserForm.SelectValueInDropdown(UserManagementFieldNames.UserRole, UserRole.Admin);
+            addUserForm.SelectValueInStatusDropdown(Status.Enabled);
+            addUserForm.SelectValueInUserRoleDropdown(UserRole.Admin);
             addUserForm.ClickSaveButton();
 
             // Check that warning message is displayed
@@ -200,7 +199,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             employeeManagementPage.ClickLeftNavCategory(LeftNavCategories.Pim);
             employeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
             employeeManagementPage.ClickAddEmployeeButton();
-            var addEmployeeForm = GenericForms.AddEmployeeForm;
+            var addEmployeeForm = AddEmployeePage.AddEmployeeTab;
             addEmployeeForm.EnterDataToAllInputs(firstName, lastName, middleName);
             addEmployeeForm.ClickSaveButton();
             addEmployeeForm.WaitUntilSuccessMessageDisplayed();
@@ -211,12 +210,12 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         private void AddTestUser(string userName, string userPassword, UserRole valueRole, Status valueStatus)
         {
             GenericPages.UserManagementPage.ClickAddUserButton();
-            var addUserForm = GenericForms.AddUserForm;
+            var addUserForm = AddUserPage.AddUserTab;
             addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
             addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
             addUserForm.EnterDataToUsernameInput(userName);
-            addUserForm.SelectValueInDropdown(UserManagementFieldNames.Status, Status.Enabled);
-            addUserForm.SelectValueInDropdown(UserManagementFieldNames.UserRole, UserRole.Admin);
+            addUserForm.SelectValueInStatusDropdown(Status.Enabled);
+            addUserForm.SelectValueInUserRoleDropdown(UserRole.Admin);
             addUserForm.ClickSaveButtonWithWait();
             addUserForm.WaitUntilSuccessMessageDisplayed();
         }

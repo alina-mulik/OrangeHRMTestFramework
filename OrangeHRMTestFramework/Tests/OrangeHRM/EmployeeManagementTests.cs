@@ -6,7 +6,6 @@ using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.HttpClients;
 using OrangeHRMTestFramework.Models;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
-using OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
@@ -41,8 +40,8 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
 
             // Check that Id input is not empty
-            var addEmployeeForm = GenericForms.AddEmployeeForm;
-            var id = addEmployeeForm.GetValueFromIdInput();
+            var addEmployeeForm = AddEmployeePage.AddEmployeeTab;
+            var id = addEmployeeForm.GetValueFromIdTextBox();
             Assert.NotNull(id);
 
             // Enter data to all Inputs and click Save
@@ -64,7 +63,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var listOfUserFirstMiddleNames = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfUserFirstMiddleNames.Count);
             Assert.AreEqual($"{firstName} {middleName}", listOfUserFirstMiddleNames[0]);
-            var lastNameFromGrid = EmployeeManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(PimDataGridFieldNames.LastName, 1);
+            var lastNameFromGrid = EmployeeManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(PimDataGridFieldNames.LastName, 1);
             Assert.AreEqual(lastName, lastNameFromGrid);
         }
 
@@ -158,8 +157,8 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             EmployeeManagementPage.BasicDataGrid.ClickEditButtonByRowNumber(1);
 
             // Make changes to name fields and save them
-            GenericForms.EmployeePersonalDetailsForm.EditPreviousValuesInAllNameInputs(stringForChange);
-            GenericForms.EmployeePersonalDetailsForm.ClickSaveButton();
+            EmployeePersonalDetailsPage.EmployeePersonalDetailsTab.EditPreviousValuesInAllNameInputs(stringForChange);
+            EmployeePersonalDetailsPage.EmployeePersonalDetailsTab.ClickSaveButton();
 
             // Check successful update message
             var successUpdateMessage = GenericPages.EmployeeManagementPage.GetTextFromSuccessMessage();
@@ -174,7 +173,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var listOfUserFirstMiddleNamesAfterUpdate = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfUserFirstMiddleNamesAfterUpdate.Count);
             Assert.AreEqual($"{firstName}{stringForChange} {middleName}{stringForChange}", listOfUserFirstMiddleNamesAfterUpdate[0]);
-            var lastNameValue = EmployeeManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(PimDataGridFieldNames.LastName, 1);
+            var lastNameValue = EmployeeManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(PimDataGridFieldNames.LastName, 1);
             Assert.AreEqual($"{lastName}{stringForChange}", lastNameValue);
         }
 
@@ -226,7 +225,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
         private void AddTestEmployee(string firstName, string lastName, string middleName)
         {
-            var addEmployeeForm = GenericForms.AddEmployeeForm;
+            var addEmployeeForm = AddEmployeePage.AddEmployeeTab;
             GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
             addEmployeeForm.EnterDataToAllInputs(firstName, lastName, middleName);
             addEmployeeForm.ClickSaveButton();

@@ -3,7 +3,7 @@ using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Data;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.Models;
-using OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms;
+using OrangeHRMTestFramework.PageObjects.OrangeHRM;
 
 namespace OrangeHRMTestFramework.Tests
 {
@@ -50,7 +50,7 @@ namespace OrangeHRMTestFramework.Tests
 
         private void LogInAsAnAdminUser()
         {
-            var loginForm = GenericForms.LoginForm;
+            var loginForm = LoginPage.LoginTab;
             loginForm.EnterDataToUsernameInput(_adminUser.UserName);
             loginForm.EnterDataToPasswordInput(_adminUser.Password);
             loginForm.ClickLoginButton();

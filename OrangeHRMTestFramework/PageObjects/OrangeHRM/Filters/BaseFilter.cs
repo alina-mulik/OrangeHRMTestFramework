@@ -10,17 +10,17 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Filters
     {
         private OrangeWebElement _searchButton = new(By.XPath("//form[@class='oxd-form']//button[@type='submit']"));
         private OrangeWebElement _resetButton = new(By.XPath("//form[@class='oxd-form']//button[@type='button']"));
-        protected string BaseFilterInputLocator => "//label[contains(text(), '{0}')]//following::input[1]";
+        protected string BaseFilterTextBoxLocator => "//label[contains(text(), '{0}')]//following::input[1]";
         protected string BaseDropdownLocator => "//label[contains(text(), '{0}')]//ancestor::div[@class='oxd-input-group oxd-input-field-bottom-space']"
             + "//div[@class='oxd-select-text oxd-select-text--active']";
 
         public void EnterAndSelectValueInEmployeeNameFilterInput(string value)
         {
-            var employeeNameInput = new OrangeWebElement(By.XPath(string.Format(BaseFilterInputLocator, UserManagementFieldNames.EmployeeName)));
-            employeeNameInput.SendKeys(value);
+            var employeeNameTextBox = new OrangeWebElement(By.XPath(string.Format(BaseFilterTextBoxLocator, UserManagementFieldNames.EmployeeName)));
+            employeeNameTextBox.SendKeys(value);
             var searchingElement = new OrangeWebElement(By.XPath("//div[@role='listbox']/div[@role='option']/span[1]"));
             WebDriverFactory.Driver.GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => searchingElement.Text != "Searching...");
-            var searchedResult = employeeNameInput.FindElements(By.XPath($"//div[@role='listbox']/div[@role='option']"));
+            var searchedResult = employeeNameTextBox.FindElements(By.XPath($"//div[@role='listbox']/div[@role='option']"));
             searchedResult.FirstOrDefault().Click();
         }
 

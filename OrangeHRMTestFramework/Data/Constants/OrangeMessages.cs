@@ -10,6 +10,7 @@
         public const string SuccessfullyUpdatedToastMessageText = "Successfully Updated";
         public const string RequiredWarningMessage = "Required";
         public const string AlreadyExistsWarningMessage = "Already exists";
+        public const string EmployeeIdAlreadyExistsWarningMessage = "Employee Id already exists";
     }
 }
 

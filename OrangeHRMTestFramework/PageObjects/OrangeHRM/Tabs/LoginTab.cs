@@ -2,16 +2,16 @@
 using OrangeHRMTestFramework.Common.WebElements;
 using OrangeHRMTestFramework.Data.Constants;
 
-namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms
+namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Tabs
 {
-    public class LoginForm : BaseForm
+    public class LoginTab : BaseTab
     {
         private OrangeWebElement _submitButton = new(By.XPath("//button[@type='submit']"));
 
         public void EnterDataToPasswordInput(string password)
         {
-            var passwordInput = new OrangeWebElement(By.XPath(string.Format(BaseInputLocator, UserManagementFieldNames.Password)));
-            passwordInput.SendKeys(password);
+            var passwordTextBox = new OrangeWebElement(By.XPath(string.Format(BaseTextBoxLocator, UserManagementFieldNames.Password)));
+            passwordTextBox.SendKeys(password);
         }
 
         public void ClickLoginButton() => _submitButton.ClickWithScroll();
