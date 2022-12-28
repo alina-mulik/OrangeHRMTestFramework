@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OrangeHRMTestFramework.Common.Drivers;
-using OrangeHRMTestFramework.Common.Extensions;
 using OrangeHRMTestFramework.Common.WebElements;
 
 namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
@@ -8,6 +7,8 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
     public class BasicDataGrid
     {
         private OrangeWebElement _tableElement = new(By.XPath("//div[@role='table']"));
+        private string _paginationLocator = "//i[@class='oxd-icon bi-chevron-right']//ancestor::button[@class='oxd-pagination-page-item" +
+            " oxd-pagination-page-item--previous-next']";
 
         public List<string> GetCellValuesByColumnName(string columnName)
         {
@@ -25,6 +26,32 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
             return listOfColumnValues;
         }
 
+        public List<string> GetCellValuesFromAllPages(string columnName)
+        {
+            var isPaginationDisplayed = CheckIfPaginationButtonDisplayed();
+            var listOfColumnValuesFromAllPages = GetCellValuesByColumnName(columnName);
+            while (isPaginationDisplayed)
+            {
+                ClickPaginationButton();
+                var listOfValuesOnPage = GetCellValuesByColumnName(columnName);
+                listOfColumnValuesFromAllPages.AddRange(listOfValuesOnPage);
+                isPaginationDisplayed = CheckIfPaginationButtonDisplayed();
+            }
+            WebDriverFactory.Driver.Navigate().Refresh();
+
+            return listOfColumnValuesFromAllPages;
+        }
+
+
+        public void ClickPaginationButton()
+        {
+            if (CheckIfPaginationButtonDisplayed())
+            {
+                var paginationButton = new OrangeWebElement(By.XPath(_paginationLocator));
+                paginationButton.ClickWithScroll();
+            }
+        }
+
         public string GetValueByColumnNameAndRowIndex(string columnName, int rowNumber)
         {
             WaitUntillDataGridIsDisplayed();
@@ -36,16 +63,12 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
 
         public void ClickDeleteButtonByRowNumber(int rowNumber)
         {
-            var deleteButtonLocator = "(//div[@role='cell'][last()])[{0}]//button[@type='button'][1]";
-            var deleteButtonByRowNumber = new OrangeWebElement(By.XPath(string.Format(deleteButtonLocator, rowNumber)));
-            deleteButtonByRowNumber.ClickWithScroll();
+            ClickActionButtonByRowIndex(1, rowNumber);
         }
 
         public void ClickEditButtonByRowNumber(int rowNumber)
         {
-            var editButtonLocator = "(//div[@role='cell'][last()])[{0}]//button[@type='button'][2]";
-            var editButtonByRowNumber = new OrangeWebElement(By.XPath(string.Format(editButtonLocator, rowNumber)));
-            editButtonByRowNumber.ClickWithScroll();
+            ClickActionButtonByRowIndex(2, rowNumber);
         }
 
         public void SortDescByColumnName(string columnName)
@@ -71,9 +94,9 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
         private int GetColumnId(string columnName)
         {
             var columnsXpath = "//div[@role='columnheader']";
-            var allcolumns = _tableElement.FindElements(By.XPath(columnsXpath));
-            var selectColumn = allcolumns.Select(x => x).FirstOrDefault(x => x.Text == columnName);
-            var index = allcolumns.IndexOf(selectColumn);
+            var allColumns = _tableElement.FindElements(By.XPath(columnsXpath));
+            var selectColumn = allColumns.Select(x => x).FirstOrDefault(x => x.Text == columnName);
+            var index = allColumns.IndexOf(selectColumn);
 
             return index + 1;
         }
@@ -83,8 +106,26 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids
             var rowElement = new OrangeWebElement(By.XPath("//div[@role='row']"));
             if (!rowElement.Displayed)
             {
-                WebDriverFactory.Driver.GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => rowElement.Displayed);
+                rowElement.WaitUntilDisplayed();
             }
+        }
+
+        private void ClickActionButtonByRowIndex(int action, int rowInex)
+        {
+            var commonRowButtonLocator = new OrangeWebElement(By.XPath($"(//div[@role='row']//div[@role='cell'][last()]//button[{action}])[{rowInex}]"));
+            commonRowButtonLocator.WaitUntilDisplayed();
+            commonRowButtonLocator.ClickWithScroll();
+        }
+
+        private bool CheckIfPaginationButtonDisplayed()
+        {
+
+            var listOfPaginations = _tableElement.FindElements(By.XPath(_paginationLocator));
+            if (listOfPaginations.Count != 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

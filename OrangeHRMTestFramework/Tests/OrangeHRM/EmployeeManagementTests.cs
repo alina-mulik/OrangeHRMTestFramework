@@ -1,14 +1,11 @@
 ﻿using NUnit.Framework;
 using OrangeHRMTestFramework.Common.Drivers;
-using OrangeHRMTestFramework.Common.Extensions;
 using OrangeHRMTestFramework.Data;
 using OrangeHRMTestFramework.Data.Constants;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.HttpClients;
 using OrangeHRMTestFramework.Models;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
-using OrangeHRMTestFramework.PageObjects.OrangeHRM.DataGrids;
-using OrangeHRMTestFramework.PageObjects.OrangeHRM.Filters;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
 
@@ -42,7 +39,6 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
             // Go to the Add Employee Page using Add Employee button
             GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
-            Assert.AreEqual(TestSettings.OrangeAddEmployeePageUrl, WebDriverFactory.Driver.GetCurrentUrl());
 
             // Check that Id input is not empty
             var addEmployeeForm = GenericForms.AddEmployeeForm;
@@ -59,17 +55,16 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
             // Go back to Employees list page
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
-            Assert.AreEqual(TestSettings.OrangeEmployeeListPageUrl, WebDriverFactory.Driver.GetCurrentUrl());
 
             // Find Employee By Employee Name using filters
-            GenericFilters.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
-            GenericFilters.EmployeeListFilter.ClickSearchButton();
+            EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts and value of some fields in the Data Grid
-            var listOfUserFirstMiddleNames = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfUserFirstMiddleNames = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfUserFirstMiddleNames.Count);
             Assert.AreEqual($"{firstName} {middleName}", listOfUserFirstMiddleNames[0]);
-            var lastNameFromGrid = GenericDataGrids.BasicDataGrid.GetValueByColumnNameAndRowIndex(PimDataGridFieldNames.LastName, 1);
+            var lastNameFromGrid = EmployeeManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(PimDataGridFieldNames.LastName, 1);
             Assert.AreEqual(lastName, lastNameFromGrid);
         }
 
@@ -87,15 +82,15 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericFilters.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
-            GenericFilters.EmployeeListFilter.ClickSearchButton();
+            EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before deletion
-            var listOfUserFirstMiddleNames = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfUserFirstMiddleNames = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfUserFirstMiddleNames.Count);
 
             // Click Delete button and Delete employee entry
-            GenericDataGrids.BasicDataGrid.ClickDeleteButtonByRowNumber(1);
+            EmployeeManagementPage.BasicDataGrid.ClickDeleteButtonByRowNumber(1);
             GenericPopups.DeleteEntryPopup.ClickYesDeleteEntryButton();
 
             // Check success deletion message
@@ -103,7 +98,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             Assert.AreEqual(OrangeMessages.SuccessfullyDeletedToastMessageText, successDeletionMessage);
 
             // Check counts after the deletion
-            var listOfUserFirstMiddleNamesAfterDeletion = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfUserFirstMiddleNamesAfterDeletion = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(0, listOfUserFirstMiddleNamesAfterDeletion.Count);
         }
 
@@ -121,19 +116,19 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericFilters.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
-            GenericFilters.EmployeeListFilter.ClickSearchButton();
+            EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before deletion
-            var listOfUserFirstMiddleNames = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfUserFirstMiddleNames = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfUserFirstMiddleNames.Count);
 
             // Click Delete button and click Cancel
-            GenericDataGrids.BasicDataGrid.ClickDeleteButtonByRowNumber(1);
+            EmployeeManagementPage.BasicDataGrid.ClickDeleteButtonByRowNumber(1);
             GenericPopups.DeleteEntryPopup.ClickNoDeleteEntryButton();
 
             // Check counts after the deletion
-            var listOfUserFirstMiddleNamesAfterDeletion = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfUserFirstMiddleNamesAfterDeletion = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfUserFirstMiddleNamesAfterDeletion.Count);
         }
 
@@ -152,15 +147,15 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericFilters.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
-            GenericFilters.EmployeeListFilter.ClickSearchButton();
+            EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before editing just in case
-            var listOfNames = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfNames = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfNames.Count);
 
             // Click Edit button and check that user is directed to Edit Employee Page
-            GenericDataGrids.BasicDataGrid.ClickEditButtonByRowNumber(1);
+            EmployeeManagementPage.BasicDataGrid.ClickEditButtonByRowNumber(1);
 
             // Make changes to name fields and save them
             GenericForms.EmployeePersonalDetailsForm.EditPreviousValuesInAllNameInputs(stringForChange);
@@ -172,14 +167,14 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
             // Go to the Employee List page and try to filter entry using new value
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
-            GenericFilters.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput($"{firstName}{stringForChange}");
-            GenericFilters.EmployeeListFilter.ClickSearchButton();
+            EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput($"{firstName}{stringForChange}");
+            EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts and field values
-            var listOfUserFirstMiddleNamesAfterUpdate = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfUserFirstMiddleNamesAfterUpdate = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfUserFirstMiddleNamesAfterUpdate.Count);
             Assert.AreEqual($"{firstName}{stringForChange} {middleName}{stringForChange}", listOfUserFirstMiddleNamesAfterUpdate[0]);
-            var lastNameValue = GenericDataGrids.BasicDataGrid.GetValueByColumnNameAndRowIndex(PimDataGridFieldNames.LastName, 1);
+            var lastNameValue = EmployeeManagementPage.BasicDataGrid.GetValueByColumnNameAndRowIndex(PimDataGridFieldNames.LastName, 1);
             Assert.AreEqual($"{lastName}{stringForChange}", lastNameValue);
         }
 
@@ -199,15 +194,15 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericFilters.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
-            GenericFilters.EmployeeListFilter.ClickSearchButton();
+            EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before editing just in case
-            var listOfNames = GenericDataGrids.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfNames = EmployeeManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(1, listOfNames.Count);
 
             // Click Edit button and check that user is directed to Edit Employee Page
-            GenericDataGrids.BasicDataGrid.ClickEditButtonByRowNumber(1);
+            EmployeeManagementPage.BasicDataGrid.ClickEditButtonByRowNumber(1);
 
             // Click on the Picture to open Edit Picture page
             var employeeImageChangePage = GenericPages.ChangeEmployeeProfilePicturePage;

@@ -9,32 +9,35 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Filters
     {
         public void EnterValueToUserNameFilterInput(string value) => new OrangeWebElement(By.XPath(string.Format(BaseFilterInputLocator, UserManagementFieldNames.Username))).SendKeys(value);
 
-        public void SelectValueInStatusDropdown(Status value)
+        public void SelectValueInStatusDropdown<TEnum>(TEnum value) where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            var statusDropdown = new OrangeWebElement(By.XPath(string.Format(BaseDropdownLocator, UserManagementFieldNames.Status)));
-            statusDropdown.Click();
-            string name = Enum.GetName(typeof(Status), value);
-            var option = new OrangeWebElement(By.XPath($"//div[@role='listbox']/div[@role='option']/span[contains(text(), '{name}')]"));
-            option.Click();
+            SelectValueInDropdown(UserManagementFieldNames.Status, value);
         }
 
-        public void SelectValueInUserRoleDropdown(UserRole value)
+        public void SelectValueInUserRoleDropdown<TEnum>(TEnum value) where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            var statusDropdown = new OrangeWebElement(By.XPath(string.Format(BaseDropdownLocator, UserManagementFieldNames.UserRole)));
-            statusDropdown.Click();
-            string name = Enum.GetName(typeof(UserRole), value);
-            var option = new OrangeWebElement(By.XPath($"//div[@role='listbox']/div[@role='option']/span[contains(text(), '{name}')]"));
-            option.Click();
+            SelectValueInDropdown(UserManagementFieldNames.UserRole, value);
         }
 
-        public void EnterValuesToAllFiltersAndApply(string valueForUserName, string valueForEmployeeName,
-            Status valueOfStatus, UserRole valueOfUserRole)
+        public void EnterValuesToAllFiltersAndApply(string valueForUserName, string valueForEmployeeName, Status valueOfStatus, UserRole valueOfUserRole)
         {
-            EnterValueToUserNameFilterInput(valueForUserName);
-            EnterAndSelectValueInEmployeeNameFilterInput(valueForEmployeeName);
-            SelectValueInStatusDropdown(valueOfStatus);
-            SelectValueInUserRoleDropdown(valueOfUserRole);
-            ClickSearchButton();
+                EnterValueToUserNameFilterInput(valueForUserName);
+                EnterAndSelectValueInEmployeeNameFilterInput(valueForEmployeeName);
+                SelectValueInStatusDropdown(valueOfStatus);
+                SelectValueInUserRoleDropdown(valueOfUserRole);
+                ClickSearchButton();
+        }
+
+        private void SelectValueInDropdown<TEnum>(string fieldName, TEnum value) where TEnum : struct, IConvertible, IComparable, IFormattable
+        {
+            if ((typeof(TEnum).IsEnum))
+            {
+                var dropdownElement = new OrangeWebElement(By.XPath(string.Format(BaseDropdownLocator, fieldName)));
+                dropdownElement.Click();
+                string optionName = value.ToString();
+                var option = new OrangeWebElement(By.XPath($"//div[@role='listbox']/div[@role='option']/span[contains(text(), '{optionName}')]"));
+                option.Click();
+            }
         }
     }
 }

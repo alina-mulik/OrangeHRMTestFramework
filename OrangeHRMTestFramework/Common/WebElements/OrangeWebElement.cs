@@ -84,8 +84,12 @@ namespace OrangeHRMTestFramework.Common.WebElements
 
         public void Submit() => WebElement.Submit();
 
+        public void WaitUntilDisplayed() => WebDriverFactory.Driver.GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => WebElement.Displayed);
+
         // method to scroll element into view using JavaScript
         public void ScrollIntoView() => WebDriverFactory.JavaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView(false)", WebElement);
+
+        public string GetElementValue() => WebElement.GetAttribute("value");
 
         // method to get value of class attribute
         public string GetValueOfClassAttribute() => GetAttribute("class");

@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using OrangeHRMTestFramework.Data;
+using System.Reflection;
 
 namespace OrangeHRMTestFramework.Common.Extensions
 {
@@ -41,6 +43,18 @@ namespace OrangeHRMTestFramework.Common.Extensions
         }
 
         // find web element method with explicit wait
-        public static IWebElement GetWebElementWhenExists(this IWebDriver driver, By by) => driver.GetWebDriverWait().Until(drv => drv.FindElement(by));
+        public static IWebElement GetWebElementWhenExists(this IWebDriver driver, By by)
+        {
+            try
+            {
+                driver.GetWebDriverWait().Until(drv => driver.FindElements(by).Count > 0);
+            }
+            catch (WebDriverTimeoutException exception)
+            {
+                throw new WebDriverTimeoutException($"{exception.Message}\nLocator was: {by}", exception.InnerException ?? exception);
+            }
+
+            return driver.FindElement(by);
+        }
     }
 }

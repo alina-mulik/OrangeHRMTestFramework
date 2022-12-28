@@ -7,11 +7,11 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
     public class BaseOrangePage : BasePage
     {
-        private OrangeWebElement _leftNavSearchInput = new(By.XPath("//div[@class='oxd-main-menu-search']/input"));
         private string _leftNavCategoryXPath = "//a[@class='oxd-main-menu-item'][1]";
         private string _topNavCategoryWithSubCategoryXPath = "//span[@class='oxd-topbar-body-nav-tab-item' and contains(text(), '{0}')]//ancestor::li";
         private string _topNavCategoryWithoutSubCategoryXPath = "//a[@class='oxd-topbar-body-nav-tab-item' and contains(text(), '{0}')]//ancestor::li";
         private string _topNavSubCategoryXPath = "//ul[@role='menu']//a[contains(text(), 'Users')]";
+        private OrangeWebElement _leftNavSearchInput = new(By.XPath("//div[@class='oxd-main-menu-search']/input"));
         private OrangeWebElement _successToastMessage = new(By.XPath("//div/p[@class='oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text']"));
 
         public void ClickLeftNavCategory(string category)
@@ -23,7 +23,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 
         public string GetTextFromSuccessMessage()
         {
-            WebDriverFactory.Driver.GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => _successToastMessage.Displayed);
+            _successToastMessage.WaitUntilDisplayed();
             var successMessageText = _successToastMessage.Text;
 
             return successMessageText;

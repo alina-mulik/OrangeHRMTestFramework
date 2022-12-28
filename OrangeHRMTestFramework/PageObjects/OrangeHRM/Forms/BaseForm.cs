@@ -19,12 +19,11 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms
             usernameInput.SendKeys(username);
         }
 
-        public void WaitUntilSuccessMessageDisplayed() => WebDriverFactory.Driver
-            .GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => _successToastMessage.Displayed);
+        public void WaitUntilSuccessMessageDisplayed() =>  _successToastMessage.WaitUntilDisplayed();
 
         public string GetTextFromSuccessMessage()
         {
-            WebDriverFactory.Driver.GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => _successToastMessage.Displayed);
+            _successToastMessage.WaitUntilDisplayed();
             var successMessageText = _successToastMessage.Text;
 
             return successMessageText;

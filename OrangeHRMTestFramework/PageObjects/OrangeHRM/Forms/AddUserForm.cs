@@ -3,7 +3,6 @@ using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Common.Extensions;
 using OrangeHRMTestFramework.Common.WebElements;
 using OrangeHRMTestFramework.Data.Constants;
-using OrangeHRMTestFramework.Data.Enums;
 using SeleniumExtras.WaitHelpers;
 
 namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms
@@ -14,8 +13,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms
 
         public void EnterAndSelectValueInEmployeeNameFilterInput(string value)
         {
-            var employeeNameInput =
-                new OrangeWebElement(By.XPath(string.Format(BaseInputLocator, UserManagementFieldNames.EmployeeName)));
+            var employeeNameInput = new OrangeWebElement(By.XPath(string.Format(BaseInputLocator, UserManagementFieldNames.EmployeeName)));
             employeeNameInput.SendKeys(value);
             var searchingElement = new OrangeWebElement(By.XPath("//div[@role='listbox']/div[@role='option']/span[1]"));
             WebDriverFactory.Driver.GetWebDriverWait(pollingInterval: TimeSpan.FromSeconds(1)).Until(_ => searchingElement.Text != "Searching...");
@@ -34,22 +32,16 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms
             }
         }
 
-        public void SelectValueInStatusDropdown(Status value)
+        public void SelectValueInDropdown<TEnum>(string fieldName, TEnum value) where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            var statusDropdown = new OrangeWebElement(By.XPath(string.Format(BaseDropdownLocator, UserManagementFieldNames.Status)));
-            statusDropdown.Click();
-            string name = Enum.GetName(typeof(Status), value);
-            var option = new OrangeWebElement(By.XPath($"//div[@role='listbox']/div[@role='option']/span[contains(text(), '{name}')]"));
-            option.Click();
-        }
-
-        public void SelectValueInUserRoleDropdown(UserRole value)
-        {
-            var statusDropdown = new OrangeWebElement(By.XPath(string.Format(BaseDropdownLocator, UserManagementFieldNames.UserRole)));
-            statusDropdown.Click();
-            string name = Enum.GetName(typeof(UserRole), value);
-            var option = new OrangeWebElement(By.XPath($"//div[@role='listbox']/div[@role='option']/span[contains(text(), '{name}')]"));
-            option.Click();
+            if ((typeof(TEnum).IsEnum))
+            {
+                var dropdownElement = new OrangeWebElement(By.XPath(string.Format(BaseDropdownLocator, fieldName)));
+                dropdownElement.Click();
+                string optionName = value.ToString();
+                var option = new OrangeWebElement(By.XPath($"//div[@role='listbox']/div[@role='option']/span[contains(text(), '{optionName}')]"));
+                option.Click();
+            }
         }
 
         public List<string> GetWarningMessagesText()
@@ -73,10 +65,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms
             _saveButton.Click();
         }
 
-        public void ClickSaveButton()
-        {
-            _saveButton.Click();
-        }
+        public void ClickSaveButton() =>  _saveButton.Click();
 
         public bool IsWarningMessageWithCertainTextIsDisplayed(string text)
         {

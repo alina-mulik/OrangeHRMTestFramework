@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
 using OrangeHRMTestFramework.Common.Drivers;
-using OrangeHRMTestFramework.Common.Extensions;
-using OrangeHRMTestFramework.Data;
 using OrangeHRMTestFramework.Data.Constants;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
@@ -50,18 +48,12 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             // Click Forgot Password link to open Reset Password popup
             GenericPages.LoginPage.ClickForgotPasswordLink();
 
-            // Check that Reset Password page is opened
-            var resetPasswordPageUrl = WebDriverFactory.Driver.GetCurrentUrl();
-            Assert.AreEqual(TestSettings.OrangeResetPasswordPageUrl, resetPasswordPageUrl);
-
-            // Enter data to User Name input and click Reset Password button
+            // Enter data to User Name input and click Reset Password button on Reset Password Page
             var resetPasswordPage = GenericForms.ResetPasswordForm;
             resetPasswordPage.EnterDataToUsernameInput(randomUserName);
             resetPasswordPage.ClickResetPasswordButton();
 
             // Check that user is directed to the Send Password Reset page and check the success message displayed
-            var sentResetPasswordPageUrl = WebDriverFactory.Driver.GetCurrentUrl();
-            Assert.AreEqual(TestSettings.OrangeSendPasswordResetPageUrl, sentResetPasswordPageUrl);
             var resetPasswordSentText = GenericPages.SendPasswordResetPage.GetTextOfResetPasswordSentTitle();
             Assert.AreEqual(OrangeMessages.ResetPasswordSuccessMessage, resetPasswordSentText);
 

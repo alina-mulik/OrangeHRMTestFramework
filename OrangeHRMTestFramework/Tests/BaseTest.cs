@@ -9,11 +9,11 @@ namespace OrangeHRMTestFramework.Tests
 {
     public class BaseTest
     {
-        private UserInfo _userInfo;
+        private UserInfo _adminUser;
 
-        public BaseTest(UserInfo userInfo = null)
+        public BaseTest(UserInfo user = null)
         {
-            _userInfo = userInfo;
+            _adminUser = user;
         }
 
         [OneTimeSetUp]
@@ -21,7 +21,7 @@ namespace OrangeHRMTestFramework.Tests
         {
             WebDriverFactory.Driver.Navigate().GoToUrl(TestSettings.OrangeLoginPageUrl);
 
-            if (_userInfo != null)
+            if (_adminUser != null)
             {
                 LogInAsAnAdminUser();
             }
@@ -51,8 +51,8 @@ namespace OrangeHRMTestFramework.Tests
         private void LogInAsAnAdminUser()
         {
             var loginForm = GenericForms.LoginForm;
-            loginForm.EnterDataToUsernameInput(TestSettings.OrangeAdminUserName);
-            loginForm.EnterDataToPasswordInput(TestSettings.OrangeAdminPassword);
+            loginForm.EnterDataToUsernameInput(_adminUser.UserName);
+            loginForm.EnterDataToPasswordInput(_adminUser.Password);
             loginForm.ClickLoginButton();
         }
     }

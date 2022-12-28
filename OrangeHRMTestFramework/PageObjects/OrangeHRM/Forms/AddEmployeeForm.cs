@@ -20,6 +20,6 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Forms
 
         public void ClickSaveButton() => _saveButton.Click();
 
-        public string GetValueFromIdInput() => _idInput.GetAttribute("value");
+        public string GetValueFromIdInput() => _idInput.GetElementValue();
     }
 }
