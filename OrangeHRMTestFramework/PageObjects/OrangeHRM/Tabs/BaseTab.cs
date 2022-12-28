@@ -1,6 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OrangeHRMTestFramework.Common.Drivers;
-using OrangeHRMTestFramework.Common.Extensions;
 using OrangeHRMTestFramework.Common.WebElements;
 using OrangeHRMTestFramework.Data.Constants;
 
