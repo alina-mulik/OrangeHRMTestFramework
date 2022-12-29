@@ -43,7 +43,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Enter data to all inputs
-            var addUserForm = AddUserPage.AddUserTab;
+            var addUserForm = GenericPages.AddUserPage.AddUserTab;
             addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
             addUserForm.EnterDataToUsernameInput(userName);
             addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
@@ -52,25 +52,25 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             addUserForm.ClickSaveButtonWithWait();
 
             // Check success toast message
-            var successMessage = addUserForm.GetTextFromSuccessMessage();
+            var successMessage = GenericPages.AddUserPage.GetTextFromSuccessMessage();
             Assert.AreEqual(OrangeMessages.SuccessfullyCreatedToastMessageText, successMessage);
 
             // Go to User Management Page
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
 
             // Filter newly-created user by Username
-            UserManagementPage.UserManagementFilter.EnterValueToUserNameFilterTextBox(userName);
-            UserManagementPage.UserManagementFilter.ClickSearchButton();
+            GenericPages.UserManagementPage.UserManagementFilter.EnterValueToUserNameFilterTextBox(userName);
+            GenericPages.UserManagementPage.UserManagementFilter.ClickSearchButton();
 
             // Verify entries in the grid after filtering, check counts and field values
-            var listOfUserNames = UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
+            var listOfUserNames = GenericPages.UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
             Assert.AreEqual(1, listOfUserNames.Count);
             Assert.AreEqual(userName, listOfUserNames[0]);
-            var employeeNameFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.EmployeeName, 1);
+            var employeeNameFromGrid = GenericPages.UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.EmployeeName, 1);
             Assert.AreEqual(_employeeName, employeeNameFromGrid);
-            var statusFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.Status, 1);
+            var statusFromGrid = GenericPages.UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.Status, 1);
             Assert.AreEqual(statusEnabled, statusFromGrid);
-            var userRoleFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.UserRole, 1);
+            var userRoleFromGrid = GenericPages.UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.UserRole, 1);
             Assert.AreEqual(userRoleAdmin, userRoleFromGrid);
         }
 
@@ -87,10 +87,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
 
             // Apply filters using all existing inputs and dropdowns on User Management Page
-            UserManagementPage.UserManagementFilter.EnterValuesToAllFiltersAndApply(userName, _employeeName, Status.Enabled, UserRole.Admin);
+            GenericPages.UserManagementPage.UserManagementFilter.EnterValuesToAllFiltersAndApply(userName, _employeeName, Status.Enabled, UserRole.Admin);
 
             // Click Delete button and Delete employee entry
-            UserManagementPage.BasicDataGrid.ClickDeleteButtonByRowNumber(1);
+            GenericPages.UserManagementPage.BasicDataGrid.ClickDeleteButtonByRowNumber(1);
             GenericPopups.DeleteEntryPopup.ClickYesDeleteEntryButton();
 
             // Check success deletion message
@@ -98,7 +98,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             Assert.AreEqual(OrangeMessages.SuccessfullyDeletedToastMessageText, successDeletionMessage);
 
             // Check counts after the deletion
-            var listOfUserFirstMiddleNamesAfterDeletion = UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
+            var listOfUserFirstMiddleNamesAfterDeletion = GenericPages.UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(PimDataGridFieldNames.FirstAndMiddleName);
             Assert.AreEqual(0, listOfUserFirstMiddleNamesAfterDeletion.Count);
         }
 
@@ -115,13 +115,13 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
 
             // Apply filters using all existing inputs and dropdowns on User Management Page
-            UserManagementPage.UserManagementFilter.EnterValuesToAllFiltersAndApply(userName, _employeeName, Status.Enabled, UserRole.Admin);
+            GenericPages.UserManagementPage.UserManagementFilter.EnterValuesToAllFiltersAndApply(userName, _employeeName, Status.Enabled, UserRole.Admin);
 
             // Check counts and value of some fields in the Data Grid
-            var listOfUserNames = UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
+            var listOfUserNames = GenericPages.UserManagementPage.BasicDataGrid.GetCellValuesByColumnName(UserManagementFieldNames.Username);
             Assert.AreEqual(1, listOfUserNames.Count);
             Assert.AreEqual(userName, listOfUserNames[0]);
-            var employeeNameFromGrid = UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.EmployeeName, 1);
+            var employeeNameFromGrid = GenericPages.UserManagementPage.BasicDataGrid.GetValueByColumnNameAndRowNumber(UserManagementFieldNames.EmployeeName, 1);
             Assert.AreEqual(_employeeName, employeeNameFromGrid);
         }
 
@@ -132,10 +132,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Click Save button without entering any data to inputs
-            AddUserPage.AddUserTab.ClickSaveButtonWithWait();
+            GenericPages.AddUserPage.AddUserTab.ClickSaveButtonWithWait();
 
             // Check that required message is displayed under each input
-            var warningMessagesDisplayed = AddUserPage.AddUserTab.GetWarningMessagesText();
+            var warningMessagesDisplayed = GenericPages.AddUserPage.AddUserTab.GetWarningMessagesText();
 
             // Check Text and Counts of warnings
             Assert.AreEqual(6, warningMessagesDisplayed.Count);
@@ -158,7 +158,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Enter the same data as for the first user
-            var addUserForm = AddUserPage.AddUserTab;
+            var addUserForm = GenericPages.AddUserPage.AddUserTab;
             addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
             addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
             addUserForm.EnterDataToUsernameInput(userName);
@@ -175,16 +175,16 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         public void SortUserListByUserNameDescTest()
         {
             // Get cell values from the DataGrid before sorting
-            var userNamesListBeforeSorting = UserManagementPage.BasicDataGrid.GetCellValuesFromAllPages(UserManagementFieldNames.Username);
+            var userNamesListBeforeSorting = GenericPages.UserManagementPage.BasicDataGrid.GetCellValuesFromAllPages(UserManagementFieldNames.Username);
 
             // Get expected result by  sorting list of values desc
             var expectedResultList = userNamesListBeforeSorting.OrderByDescending(x => x);
 
             // Sort Usernames on the Data Grid by Username desc
-            UserManagementPage.BasicDataGrid.SortDescByColumnName(UserManagementFieldNames.Username);
+            GenericPages.UserManagementPage.BasicDataGrid.SortDescByColumnName(UserManagementFieldNames.Username);
 
             // Get cell values from the DataGrid after sorting
-            var userNamesListAfterSorting = UserManagementPage.BasicDataGrid.GetCellValuesFromAllPages(UserManagementFieldNames.Username);
+            var userNamesListAfterSorting = GenericPages.UserManagementPage.BasicDataGrid.GetCellValuesFromAllPages(UserManagementFieldNames.Username);
 
             // Check that values in the Grid are really sorted by desc
             Assert.AreEqual(expectedResultList, userNamesListAfterSorting);
@@ -199,10 +199,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             employeeManagementPage.ClickLeftNavCategory(LeftNavCategories.Pim);
             employeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
             employeeManagementPage.ClickAddEmployeeButton();
-            var addEmployeeForm = AddEmployeePage.AddEmployeeTab;
+            var addEmployeeForm = GenericPages.AddEmployeePage.AddEmployeeTab;
             addEmployeeForm.EnterDataToAllInputs(firstName, lastName, middleName);
             addEmployeeForm.ClickSaveButton();
-            addEmployeeForm.WaitUntilSuccessMessageDisplayed();
+            GenericPages.AddEmployeePage.WaitUntilSuccessMessageDisplayed();
 
             return $"{firstName} {lastName}";
         }
@@ -210,14 +210,14 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         private void AddTestUser(string userName, string userPassword, UserRole valueRole, Status valueStatus)
         {
             GenericPages.UserManagementPage.ClickAddUserButton();
-            var addUserForm = AddUserPage.AddUserTab;
+            var addUserForm = GenericPages.AddUserPage.AddUserTab;
             addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
             addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
             addUserForm.EnterDataToUsernameInput(userName);
             addUserForm.SelectValueInStatusDropdown(Status.Enabled);
             addUserForm.SelectValueInUserRoleDropdown(UserRole.Admin);
             addUserForm.ClickSaveButtonWithWait();
-            addUserForm.WaitUntilSuccessMessageDisplayed();
+            GenericPages.AddUserPage.WaitUntilSuccessMessageDisplayed();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             Assert.AreEqual(OrangeMessages.OrangeFooterText, actualFooterText);
 
             // Enter invalid data to UserName and Password inputs
-            var loginForm = LoginPage.LoginTab;
+            var loginForm = GenericPages.LoginPage.LoginTab;
             loginForm.EnterDataToUsernameInput(randomUserName);
             loginForm.EnterDataToPasswordInput(randomPassword);
             loginForm.ClickLoginButton();
@@ -48,9 +48,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.LoginPage.ClickForgotPasswordLink();
 
             // Enter data to User Name input and click Reset Password button on Reset Password Page
-            var resetPasswordPage = ResetPasswordPage.ResetPasswordTab;
-            resetPasswordPage.EnterDataToUsernameInput(randomUserName);
-            resetPasswordPage.ClickResetPasswordButton();
+            var resetPasswordPage = GenericPages.ResetPasswordPage;
+            resetPasswordPage.ResetPasswordTab.EnterDataToUsernameInput(randomUserName);
+            resetPasswordPage.ResetPasswordTab.ClickResetPasswordButton();
 
             // Check that user is directed to the Send Password Reset page and check the success message displayed
             var resetPasswordSentText = GenericPages.SendPasswordResetPage.GetTextOfResetPasswordSentTitle();

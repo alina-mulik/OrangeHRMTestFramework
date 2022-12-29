@@ -50,7 +50,7 @@ namespace OrangeHRMTestFramework.Tests
 
         private void LogInAsAnAdminUser()
         {
-            var loginForm = LoginPage.LoginTab;
+            var loginForm = GenericPages.LoginPage.LoginTab;
             loginForm.EnterDataToUsernameInput(_adminUser.UserName);
             loginForm.EnterDataToPasswordInput(_adminUser.Password);
             loginForm.ClickLoginButton();

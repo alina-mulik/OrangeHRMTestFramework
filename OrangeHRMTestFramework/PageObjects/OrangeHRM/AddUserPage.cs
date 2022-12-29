@@ -2,8 +2,8 @@
 
 namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
-    public class AddUserPage
+    public class AddUserPage : BaseOrangePage
     {
-        public static AddUserTab AddUserTab = new AddUserTab();
+        public AddUserTab AddUserTab => new AddUserTab();
     }
 }

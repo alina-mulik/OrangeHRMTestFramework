@@ -8,7 +8,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
     {
         private OrangeWebElement _forgotPasswordLink = new(By.XPath("//p[contains(concat(' ', @class, ' '), 'orangehrm-login-forgot-header')]"));
         private OrangeWebElement _invalidCredentialsAlert = new(By.XPath("//div[@role='alert']"));
-        public static LoginTab LoginTab => new LoginTab();
+        public LoginTab LoginTab => new LoginTab();
 
         public void ClickForgotPasswordLink() => _forgotPasswordLink.ClickWithScroll();
 

@@ -2,8 +2,8 @@
 
 namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
-    public class AddEmployeePage
+    public class AddEmployeePage : BaseOrangePage
     {
-        public static AddEmployeeTab AddEmployeeTab = new AddEmployeeTab();
+        public AddEmployeeTab AddEmployeeTab => new AddEmployeeTab();
     }
 }

@@ -7,8 +7,8 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
     public class EmployeeManagementPage : BaseOrangePage
     {
-        public static BasicDataGrid BasicDataGrid => new BasicDataGrid();
-        public static EmployeeListFilter EmployeeListFilter => new EmployeeListFilter();
+        public BasicDataGrid BasicDataGrid => new BasicDataGrid();
+        public EmployeeListFilter EmployeeListFilter => new EmployeeListFilter();
 
         private OrangeWebElement _addEmployeeButton = new(By.XPath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary']"));
 

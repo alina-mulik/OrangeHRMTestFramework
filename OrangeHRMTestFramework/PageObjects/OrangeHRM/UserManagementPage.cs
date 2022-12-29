@@ -7,8 +7,8 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
     public class UserManagementPage : BaseOrangePage
     {
-        public static BasicDataGrid BasicDataGrid => new BasicDataGrid();
-        public static UserManagementFilter UserManagementFilter => new UserManagementFilter();
+        public BasicDataGrid BasicDataGrid => new BasicDataGrid();
+        public UserManagementFilter UserManagementFilter => new UserManagementFilter();
 
         private OrangeWebElement _addUserButton = new(By.XPath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary']"));
 

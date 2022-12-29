@@ -2,8 +2,8 @@
 
 namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
-    public class ResetPasswordPage
+    public class ResetPasswordPage : BasePage
     {
-        public static ResetPasswordTab ResetPasswordTab => new ResetPasswordTab();
+        public ResetPasswordTab ResetPasswordTab => new ResetPasswordTab();
     }
 }

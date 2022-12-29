@@ -2,8 +2,8 @@
 
 namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
-    public class EmployeePersonalDetailsPage
+    public class EmployeePersonalDetailsPage : BaseOrangePage
     {
-        public static EmployeePersonalDetailsTab EmployeePersonalDetailsTab => new EmployeePersonalDetailsTab();
+        public EmployeePersonalDetailsTab EmployeePersonalDetailsTab => new EmployeePersonalDetailsTab();
     }
 }
