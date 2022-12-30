@@ -80,7 +80,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var userPassword = $"{RandomHelper.GetRandomString(7)}{EssentialPasswordPart}";
 
             // Add test user
-            AddTestUser(userName, userPassword, UserRole.Admin, Status.Enabled);
+            AddTestUser(userName, userPassword);
 
             // Get back to User Management Page
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
@@ -108,7 +108,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var userPassword = $"{RandomHelper.GetRandomString(7)}{EssentialPasswordPart}";
 
             // Add test user
-            AddTestUser(userName, userPassword, UserRole.Admin, Status.Enabled);
+            AddTestUser(userName, userPassword);
 
             // Get back to User Management Page
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
@@ -148,7 +148,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var userPassword = $"{RandomHelper.GetRandomString(7)}{EssentialPasswordPart}";
 
             // Add  first test user
-            AddTestUser(userName, userPassword, UserRole.Admin, Status.Enabled);
+            AddTestUser(userName, userPassword);
 
             // Get back to User Management Page
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
@@ -202,7 +202,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             return $"{firstName} {lastName}";
         }
 
-        private void AddTestUser(string userName, string userPassword, UserRole valueRole, Status valueStatus)
+        private void AddTestUser(string userName, string userPassword)
         {
             var addUserPage = GenericPages.UserManagementPage.ClickAddUserButton();
             addUserPage.AddUserTab.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
