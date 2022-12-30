@@ -1,4 +1,3 @@
-
 # OrangeHRMTestFramework
 
 This project is created as a diploma project for AQA Lab in ITechArt. 
@@ -30,4 +29,3 @@ Start the server
 ```bash
   npm run start
 ```
-

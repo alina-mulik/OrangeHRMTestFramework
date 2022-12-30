@@ -1,0 +1,22 @@
+{
+  "Common": {
+    "Browser": "Chrome",
+    "OrangeHRMUrls": {
+      "OrangeLoginPage": "https://opensource-demo.orangehrmlive.com/",
+      "OrangeDashboardPage": "https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index",
+      "OrangeResetPasswordPage": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/requestPasswordResetCode",
+      "OrangeSendPasswordResetPage": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/sendPasswordReset",
+      "OrangeAddUserPage": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSystemUser",
+      "OrangeUserManagementPage": "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers",
+      "OrangeAddEmployeePage": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/addEmployee",
+      "OrangeEmployeeListPage": "https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList",
+      "OrangeBasePage": "https://opensource-demo.orangehrmlive.com"
+    }
+  },
+  "TestData": {
+    "UserData": {
+      "Username": "Admin",
+      "Password": "admin123"
+    }
+  }
+}
