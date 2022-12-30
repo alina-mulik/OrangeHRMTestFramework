@@ -24,7 +24,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Filters
             var statusValueString = valueOfStatus.ToString();
             var userRoleValueString = valueOfUserRole.ToString();
             EnterValueToUserNameFilterTextBox(valueForUserName);
-            EnterAndSelectValueInEmployeeNameFilterInput(valueForEmployeeName);
+            EnterAndSelectValueInEmployeeNameFilterTextBox(valueForEmployeeName);
             SelectValueInStatusDropdown(statusValueString);
             SelectValueInUserRoleDropdown(userRoleValueString);
             ClickSearchButton();

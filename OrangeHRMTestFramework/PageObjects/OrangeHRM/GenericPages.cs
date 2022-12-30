@@ -20,8 +20,6 @@
 
         public static AddEmployeePage AddEmployeePage => GetPage<AddEmployeePage>();
 
-        public static BaseOrangePage BaseOrangePage => GetPage<BaseOrangePage>();
-
         public static T GetPage<T>() where T: new() => new T();
     }
 }

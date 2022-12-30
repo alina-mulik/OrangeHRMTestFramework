@@ -40,19 +40,18 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             string userRoleAdmin = UserRole.Admin.ToString();
 
             // Open Add User Page by clicking Add User Button
-            GenericPages.UserManagementPage.ClickAddUserButton();
+            var addUserPage = GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Enter data to all inputs
-            var addUserForm = GenericPages.AddUserPage.AddUserTab;
-            addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
-            addUserForm.EnterDataToUsernameInput(userName);
-            addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
-            addUserForm.SelectValueInStatusDropdown(Status.Enabled);
-            addUserForm.SelectValueInUserRoleDropdown(UserRole.Admin);
-            addUserForm.ClickSaveButtonWithWait();
+            addUserPage.AddUserTab.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
+            addUserPage.AddUserTab.EnterDataToUsernameInput(userName);
+            addUserPage.AddUserTab.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
+            addUserPage.AddUserTab.SelectValueInStatusDropdown(Status.Enabled);
+            addUserPage.AddUserTab.SelectValueInUserRoleDropdown(UserRole.Admin);
+            addUserPage.AddUserTab.ClickSaveButtonWithWait();
 
             // Check success toast message
-            var successMessage = GenericPages.AddUserPage.GetTextFromSuccessMessage();
+            var successMessage = addUserPage.GetTextFromSuccessMessage();
             Assert.AreEqual(OrangeMessages.SuccessfullyCreatedToastMessageText, successMessage);
 
             // Go to User Management Page
@@ -129,13 +128,13 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         public void CheckAllFieldsRequiredWhileAddingUserTest()
         {
             // Click Add user button to open Add User Page
-            GenericPages.UserManagementPage.ClickAddUserButton();
+            var addUserPage = GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Click Save button without entering any data to inputs
-            GenericPages.AddUserPage.AddUserTab.ClickSaveButtonWithWait();
+            addUserPage.AddUserTab.ClickSaveButtonWithWait();
 
             // Check that required message is displayed under each input
-            var warningMessagesDisplayed = GenericPages.AddUserPage.AddUserTab.GetWarningMessagesText();
+            var warningMessagesDisplayed = addUserPage.AddUserTab.GetWarningMessagesText();
 
             // Check Text and Counts of warnings
             Assert.AreEqual(6, warningMessagesDisplayed.Count);
@@ -155,19 +154,18 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.UserManagementPage.ClickTopNavCategoryWithSubCategory(AdminTopNavCategories.UserManagement, AdminUserManagementSubCategories.Users);
 
             // Click Add user button to open Add User Page
-            GenericPages.UserManagementPage.ClickAddUserButton();
+            var addUserPage = GenericPages.UserManagementPage.ClickAddUserButton();
 
             // Enter the same data as for the first user
-            var addUserForm = GenericPages.AddUserPage.AddUserTab;
-            addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
-            addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
-            addUserForm.EnterDataToUsernameInput(userName);
-            addUserForm.SelectValueInStatusDropdown(Status.Enabled);
-            addUserForm.SelectValueInUserRoleDropdown(UserRole.Admin);
-            addUserForm.ClickSaveButton();
+            addUserPage.AddUserTab.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
+            addUserPage.AddUserTab.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
+            addUserPage.AddUserTab.EnterDataToUsernameInput(userName);
+            addUserPage.AddUserTab.SelectValueInStatusDropdown(Status.Enabled);
+            addUserPage.AddUserTab.SelectValueInUserRoleDropdown(UserRole.Admin);
+            addUserPage.AddUserTab.ClickSaveButton();
 
             // Check that warning message is displayed
-            var isWarningDisplayed = addUserForm.IsWarningMessageWithCertainTextIsDisplayed(OrangeMessages.AlreadyExistsWarningMessage);
+            var isWarningDisplayed = addUserPage.AddUserTab.IsWarningMessageWithCertainTextIsDisplayed(OrangeMessages.AlreadyExistsWarningMessage);
             Assert.IsTrue(isWarningDisplayed);
         }
 
@@ -195,29 +193,25 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var firstName = RandomHelper.GetRandomString(7);
             var lastName = RandomHelper.GetRandomString(7);
             var middleName = RandomHelper.GetRandomString(7);
-            var employeeManagementPage = GenericPages.EmployeeManagementPage;
-            employeeManagementPage.ClickLeftNavCategory(LeftNavCategories.Pim);
-            employeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
-            employeeManagementPage.ClickAddEmployeeButton();
-            var addEmployeeForm = GenericPages.AddEmployeePage.AddEmployeeTab;
-            addEmployeeForm.EnterDataToAllInputs(firstName, lastName, middleName);
-            addEmployeeForm.ClickSaveButton();
-            GenericPages.AddEmployeePage.WaitUntilSuccessMessageDisplayed();
+            GenericPages.EmployeeManagementPage.ClickLeftNavCategory(LeftNavCategories.Pim);
+            GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
+            var addEmployeePage = GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
+            addEmployeePage.AddEmployeeTab.EnterDataToAllInputsAndClickSave(firstName, lastName, middleName);
+            addEmployeePage.WaitUntilSuccessMessageDisplayed();
 
             return $"{firstName} {lastName}";
         }
 
         private void AddTestUser(string userName, string userPassword, UserRole valueRole, Status valueStatus)
         {
-            GenericPages.UserManagementPage.ClickAddUserButton();
-            var addUserForm = GenericPages.AddUserPage.AddUserTab;
-            addUserForm.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
-            addUserForm.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
-            addUserForm.EnterDataToUsernameInput(userName);
-            addUserForm.SelectValueInStatusDropdown(Status.Enabled);
-            addUserForm.SelectValueInUserRoleDropdown(UserRole.Admin);
-            addUserForm.ClickSaveButtonWithWait();
-            GenericPages.AddUserPage.WaitUntilSuccessMessageDisplayed();
+            var addUserPage = GenericPages.UserManagementPage.ClickAddUserButton();
+            addUserPage.AddUserTab.EnterAndSelectValueInEmployeeNameFilterInput(_employeeName);
+            addUserPage.AddUserTab.EnterValueToPasswordAndConfirmPasswordInputs(userPassword);
+            addUserPage.AddUserTab.EnterDataToUsernameInput(userName);
+            addUserPage.AddUserTab.SelectValueInStatusDropdown(Status.Enabled);
+            addUserPage.AddUserTab.SelectValueInUserRoleDropdown(UserRole.Admin);
+            addUserPage.AddUserTab.ClickSaveButtonWithWait();
+            addUserPage.WaitUntilSuccessMessageDisplayed();
         }
     }
 }

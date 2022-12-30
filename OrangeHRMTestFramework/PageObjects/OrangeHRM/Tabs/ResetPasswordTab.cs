@@ -7,6 +7,11 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Tabs
     {
         private OrangeWebElement _resetPasswordButton = new(By.XPath("//button[contains(concat(' ', @class, ' '), 'orangehrm-forgot-password-button--reset')]"));
 
-        public void ClickResetPasswordButton() => _resetPasswordButton.ClickWithScroll();
+        public SendPasswordResetPage ClickResetPasswordButton()
+        {
+            _resetPasswordButton.ClickWithScroll();
+
+            return new SendPasswordResetPage();
+        }
     }
 }

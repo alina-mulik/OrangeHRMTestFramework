@@ -10,7 +10,12 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
         private OrangeWebElement _invalidCredentialsAlert = new(By.XPath("//div[@role='alert']"));
         public LoginTab LoginTab => new LoginTab();
 
-        public void ClickForgotPasswordLink() => _forgotPasswordLink.ClickWithScroll();
+        public ResetPasswordPage ClickForgotPasswordLink()
+        {
+            _forgotPasswordLink.ClickWithScroll();
+
+            return new ResetPasswordPage();
+        }
 
         public bool IsInvalidCredentialsAlertDisplayed() => _invalidCredentialsAlert.Displayed;
 

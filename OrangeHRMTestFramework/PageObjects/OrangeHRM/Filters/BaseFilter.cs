@@ -14,7 +14,7 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Filters
         protected string BaseDropdownLocator => "//label[contains(text(), '{0}')]//ancestor::div[@class='oxd-input-group oxd-input-field-bottom-space']"
             + "//div[@class='oxd-select-text oxd-select-text--active']";
 
-        public void EnterAndSelectValueInEmployeeNameFilterInput(string value)
+        public void EnterAndSelectValueInEmployeeNameFilterTextBox(string value)
         {
             var employeeNameTextBox = new OrangeWebElement(By.XPath(string.Format(BaseFilterTextBoxLocator, UserManagementFieldNames.EmployeeName)));
             employeeNameTextBox.SendKeys(value);

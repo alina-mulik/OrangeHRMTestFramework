@@ -7,11 +7,15 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
 {
     public class UserManagementPage : BaseOrangePage
     {
+        private OrangeWebElement _addUserButton = new(By.XPath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary']"));
         public BasicDataGrid BasicDataGrid => new BasicDataGrid();
         public UserManagementFilter UserManagementFilter => new UserManagementFilter();
 
-        private OrangeWebElement _addUserButton = new(By.XPath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary']"));
+        public AddUserPage ClickAddUserButton()
+        {
+            _addUserButton.ClickWithScroll();
 
-        public void ClickAddUserButton() => _addUserButton.ClickWithScroll();
+            return new AddUserPage();
+        }
     }
 }

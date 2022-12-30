@@ -10,7 +10,10 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM
         private OrangeWebElement _changeImageTextBox = new(By.XPath("//input[@class='oxd-file-input']"));
         private OrangeWebElement _saveButton = new(By.XPath("//button[@class='oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space']"));
 
-        public void ClickOnChangeEmployeeImageElement() => _editEmployeeImageElement.Click();
+        public void ClickOnChangeEmployeeImageElement()
+        {
+            _editEmployeeImageElement.Click();
+        }
 
         public void ChangeProfileImage(string filePath)
         {

@@ -37,26 +37,24 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             var middleName = RandomHelper.GetRandomString(7);
 
             // Go to the Add Employee Page using Add Employee button
-            GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
+            var addEmployeePage = GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
 
             // Check that Id input is not empty
-            var addEmployeeForm = GenericPages.AddEmployeePage.AddEmployeeTab;
-            var id = addEmployeeForm.GetValueFromIdTextBox();
+            var id = addEmployeePage.AddEmployeeTab.GetValueFromIdTextBox();
             Assert.NotNull(id);
 
             // Enter data to all Inputs and click Save
-            addEmployeeForm.EnterDataToAllInputs(firstName, lastName, middleName);
-            addEmployeeForm.ClickSaveButton();
+            addEmployeePage.AddEmployeeTab.EnterDataToAllInputsAndClickSave(firstName, lastName, middleName);
 
             // Check Success message
-            var successMessage = GenericPages.EmployeeManagementPage.GetTextFromSuccessMessage();
+            var successMessage = addEmployeePage.GetTextFromSuccessMessage();
             Assert.AreEqual(OrangeMessages.SuccessfullyCreatedToastMessageText, successMessage);
 
             // Go back to Employees list page
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterTextBox(firstName);
             GenericPages.EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts and value of some fields in the Data Grid
@@ -81,7 +79,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterTextBox(firstName);
             GenericPages.EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before deletion
@@ -115,7 +113,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterTextBox(firstName);
             GenericPages.EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before deletion
@@ -146,7 +144,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterTextBox(firstName);
             GenericPages.EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before editing just in case
@@ -166,7 +164,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
             // Go to the Employee List page and try to filter entry using new value
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
-            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput($"{firstName}{stringForChange}");
+            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterTextBox($"{firstName}{stringForChange}");
             GenericPages.EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts and field values
@@ -193,7 +191,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.ClickTopNavCategoryWithoutSubCategory(PimTopNavCategories.EmployeeList);
 
             // Find Employee By Employee Name using filters
-            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterInput(firstName);
+            GenericPages.EmployeeManagementPage.EmployeeListFilter.EnterAndSelectValueInEmployeeNameFilterTextBox(firstName);
             GenericPages.EmployeeManagementPage.EmployeeListFilter.ClickSearchButton();
 
             // Check counts before editing just in case
@@ -204,32 +202,29 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             GenericPages.EmployeeManagementPage.BasicDataGrid.ClickEditButtonByRowNumber(1);
 
             // Click on the Picture to open Edit Picture page
-            var employeeImageChangePage = GenericPages.ChangeEmployeeProfilePicturePage;
-            employeeImageChangePage.ClickOnChangeEmployeeImageElement();
+            GenericPages.ChangeEmployeeProfilePicturePage.ClickOnChangeEmployeeImageElement();
 
             // Change Picture
-            employeeImageChangePage.ChangeProfileImage(fileFullPath);
-            employeeImageChangePage.ClickSaveButton();
+            GenericPages.ChangeEmployeeProfilePicturePage.ChangeProfileImage(fileFullPath);
+            GenericPages.ChangeEmployeeProfilePicturePage.ClickSaveButton();
 
             // Check successful update message
-            var successUpdateMessage = GenericPages.EmployeeManagementPage.GetTextFromSuccessMessage();
+            var successUpdateMessage = GenericPages.ChangeEmployeeProfilePicturePage.GetTextFromSuccessMessage();
             Assert.AreEqual(OrangeMessages.SuccessfullyUpdatedToastMessageText, successUpdateMessage);
 
             // Get src attribute of new image and send request to it to ensure the response returns with success code.
             // P.S.: Couldn't check content type or content length here, because I get Empty Content in response :( However, the image is updated.
             WebDriverFactory.Driver.Navigate().Refresh();
-            var changedImageSrc = employeeImageChangePage.GetEmployeeImageSrcAttribute();
+            var changedImageSrc = GenericPages.ChangeEmployeeProfilePicturePage.GetEmployeeImageSrcAttribute();
             var isSuccessCodeReturned = IsRequestToImageSuccessful($"{TestSettings.OrangeBasePageUrl}{changedImageSrc}");
             Assert.IsTrue(isSuccessCodeReturned);
         }
 
         private void AddTestEmployee(string firstName, string lastName, string middleName)
         {
-            var addEmployeeForm = GenericPages.AddEmployeePage.AddEmployeeTab;
-            GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
-            addEmployeeForm.EnterDataToAllInputs(firstName, lastName, middleName);
-            addEmployeeForm.ClickSaveButton();
-            GenericPages.EmployeeManagementPage.WaitUntilSuccessMessageDisplayed();
+            var addEmployeePage = GenericPages.EmployeeManagementPage.ClickAddEmployeeButton();
+            addEmployeePage.AddEmployeeTab.EnterDataToAllInputsAndClickSave(firstName, lastName, middleName);
+            addEmployeePage.WaitUntilSuccessMessageDisplayed();
         }
 
         private bool IsRequestToImageSuccessful(string srcAttribute)

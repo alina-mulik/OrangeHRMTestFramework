@@ -13,12 +13,19 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Tabs
         private OrangeWebElement _idTextBox = new(By.XPath("//label[contains(text(), 'Employee Id')]//following::div[1]/input"));
         private OrangeWebElement _saveButton = new(By.XPath("//button[@type='submit']"));
 
-        public void EnterDataToAllInputs(string firstName, string lastName, string middleName)
+        public void EnterDataToAllInputsAndClickSave(string firstName, string lastName, string middleName)
         {
             _firstNameTextBox.SendKeys(firstName);
             _middleNameTextBox.SendKeys(middleName);
             _lastNameTextBox.SendKeys(lastName);
-            ChangeValueInIdTextBoxIfWarningDisplayed();
+            ClickSaveButton();
+
+            // Check if warning message displayed after clicking Save button, because warning sometimes appers before and sometimes after Saving
+            if (IsWarningMessageDisplayedByWarningMessageText(OrangeMessages.EmployeeIdAlreadyExistsWarningMessage))
+            {
+                ChangeValueInIdTextBoxIfWarningDisplayed();
+                ClickSaveButton();
+            }
         }
 
         public void ClickSaveButton() => _saveButton.Click();

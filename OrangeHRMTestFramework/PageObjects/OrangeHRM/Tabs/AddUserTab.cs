@@ -70,7 +70,8 @@ namespace OrangeHRMTestFramework.PageObjects.OrangeHRM.Tabs
 
         public bool IsWarningMessageWithCertainTextIsDisplayed(string text)
         {
-            WebDriverFactory.Driver.GetWebDriverWait().Until(ExpectedConditions.TextToBePresentInElementLocated(By.XPath("//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']"), text));
+            WebDriverFactory.Driver.GetWebDriverWait().Until(ExpectedConditions.TextToBePresentInElementLocated(By.XPath("//span[@class='oxd-text oxd-text--span " +
+                "oxd-input-field-error-message oxd-input-group__message']"), text));
             return true;
         }
 
