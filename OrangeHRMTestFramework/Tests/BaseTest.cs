@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Allure.Net.Commons;
+using NUnit.Framework;
+using OpenQA.Selenium;
 using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Data;
 using OrangeHRMTestFramework.Helpers;
@@ -33,6 +35,7 @@ namespace OrangeHRMTestFramework.Tests
             if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
                 TakeScreenshot();
+                TakeAllureScreenshot();
             }
         }
 
@@ -46,6 +49,12 @@ namespace OrangeHRMTestFramework.Tests
         {
             var screenshotPath = ScreenshotHelper.TakeScreenshot(WebDriverFactory.Driver, TestContext.CurrentContext.Test.Name);
             TestContext.AddTestAttachment(screenshotPath);
+        }
+
+        private void TakeAllureScreenshot()
+        {
+            var screenshot = ((ITakesScreenshot)WebDriverFactory.Driver).GetScreenshot().AsByteArray;
+            AllureLifecycle.Instance.AddAttachment(TestContext.CurrentContext.Test.Name, "image/png", screenshot);
         }
 
         private void LogInAsAnAdminUser()

@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Allure.Net.Commons;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Data;
 using OrangeHRMTestFramework.Data.Constants;
@@ -10,6 +13,8 @@ using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
+    [TestFixture]
+    [AllureNUnit]
     public class EmployeeManagementTests : BaseTest
     {
         public EmployeeManagementTests() : base(UserInfo.AdminUserInfo)
@@ -30,6 +35,11 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSuite("Employee Management")]
+        [AllureSubSuite("Add Employee Form")]
+        [AllureDescription("Check adding an employee.")]
         public void AddEmployeeTest()
         {
             var firstName = RandomHelper.GetRandomString(7);
@@ -66,6 +76,11 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSuite("Employee Management")]
+        [AllureSubSuite("Employee Management Grid")]
+        [AllureDescription("Check deleting an employee.")]
         public void DeleteEmployeeTest()
         {
             var firstName = RandomHelper.GetRandomString(7);
@@ -100,6 +115,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureSuite("Employee Management")]
+        [AllureSubSuite("Employee Management Grid")]
+        [AllureSeverity(SeverityLevel.minor)]
+        [AllureDescription("Cancel employee deletion flow.")]
         public void CancelEmployeeDeletionTest()
         {
             var firstName = RandomHelper.GetRandomString(7);
@@ -130,6 +149,11 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSuite("Employee Management")]
+        [AllureSubSuite("Employee Management Grid")]
+        [AllureDescription("Test editing an existing employee.")]
         public void EditEmployeeTest()
         {
             var firstName = RandomHelper.GetRandomString(7);
@@ -176,6 +200,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureSuite("Employee Management")]
+        [AllureSubSuite("Edit Employee Form")]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureDescription("Check changing Employee image flow.")]
         public void EditEmployeeImageTest()
         {
             const string fileName = "catmem.jpg";

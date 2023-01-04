@@ -1,13 +1,19 @@
-﻿using NUnit.Framework;
+﻿using Allure.Net.Commons;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OrangeHRMTestFramework.Data.Constants;
 using OrangeHRMTestFramework.Data.Enums;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.Models;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
+using Status = OrangeHRMTestFramework.Data.Enums.Status;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
+    [TestFixture]
+    [AllureNUnit]
     public class UserManagementTests : BaseTest
     {
         private const string EssentialPasswordPart = "abc1!";
@@ -32,6 +38,11 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSuite("User Managemenet")]
+        [AllureSubSuite("Add User Form")]
+        [AllureDescription("Testing adding a new user.")]
         public void AddUserTest()
         {
             var userName = RandomHelper.GetRandomString(7);
@@ -74,6 +85,11 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSuite("User Managemenet")]
+        [AllureSubSuite("User Managemenet Grid")]
+        [AllureDescription("Testing deleting a user.")]
         public void DeleteUserTest()
         {
             var userName = RandomHelper.GetRandomString(7);
@@ -102,6 +118,11 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureSuite("User Managemenet")]
+        [AllureSubSuite("User Managemenet Grid")]
+        [AllureDescription("Check User Management filtering using all filters.")]
         public void CheckUserManagementFilteringUsingAllFiltersTest()
         {
             var userName = RandomHelper.GetRandomString(7);
@@ -125,6 +146,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureSuite("User Managemenet")]
+        [AllureSubSuite("Add User Form")]
+        [AllureDescription("Check that all fields are required in Add User form.")]
         public void CheckAllFieldsRequiredWhileAddingUserTest()
         {
             // Click Add user button to open Add User Page
@@ -142,6 +167,11 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureSuite("User Managemenet")]
+        [AllureSubSuite("Add User Form")]
+        [AllureDescription("Check that user can't be created with the Username that already exists.")]
         public void UserCantBeCreatedWithUserNameThatAlreadyExistsTest()
         {
             var userName = RandomHelper.GetRandomString(7);
@@ -170,6 +200,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureSeverity(SeverityLevel.minor)]
+        [AllureSuite("User Managemenet")]
+        [AllureSubSuite("User Managemenet Grid")]
+        [AllureDescription("Check sorting bu Username desc on User Management page.")]
         public void SortUserListByUserNameDescTest()
         {
             // Get cell values from the DataGrid before sorting
@@ -202,6 +236,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
             return $"{firstName} {lastName}";
         }
 
+        [AllureStep("Add new User step")]
         private void AddTestUser(string userName, string userPassword)
         {
             var addUserPage = GenericPages.UserManagementPage.ClickAddUserButton();

@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Allure.Net.Commons;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Data.Constants;
 using OrangeHRMTestFramework.Helpers;
@@ -6,6 +9,8 @@ using OrangeHRMTestFramework.PageObjects.OrangeHRM;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
+    [TestFixture]
+    [AllureNUnit]
     public class LoginTests: BaseTest
     {
         [SetUp]
@@ -15,6 +20,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.critical)]
+        [AllureSuite("Login")]
+        [AllureDescription("Check invalid login flow.")]
         public void InvalidLoginTest()
         {
             var randomUserName = RandomHelper.GetRandomString(7);
@@ -38,6 +47,10 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
+        [AllureTag("Regression")]
+        [AllureSeverity(SeverityLevel.normal)]
+        [AllureSuite("Login")]
+        [AllureDescription("Check reset password flow.")]
         public void ResetPasswordTest()
         {
             var randomUserName = RandomHelper.GetRandomString(7);
