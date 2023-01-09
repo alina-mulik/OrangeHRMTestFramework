@@ -1,10 +1,10 @@
 ﻿using Allure.Net.Commons;
 using NUnit.Allure.Attributes;
-using NUnit.Allure.Core;
 using NUnit.Framework;
 using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Data;
 using OrangeHRMTestFramework.Data.Constants;
+using OrangeHRMTestFramework.Data.Constants.AllureConstants;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.HttpClients;
 using OrangeHRMTestFramework.Models;
@@ -14,7 +14,7 @@ using OrangeHRMTestFramework.PageObjects.OrangeHRM.Popups;
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
     [TestFixture]
-    [AllureNUnit]
+    [AllureSuite(AllureSuites.EmployeeManagement)]
     public class EmployeeManagementTests : BaseTest
     {
         public EmployeeManagementTests() : base(UserInfo.AdminUserInfo)
@@ -35,10 +35,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureTag("Regression")]
+        [AllureTag(AllureTags.Regression)]
         [AllureSeverity(SeverityLevel.critical)]
-        [AllureSuite("Employee Management")]
-        [AllureSubSuite("Add Employee Form")]
+        [AllureSubSuite(AllureSubSuites.AddEmployeeForm)]
         [AllureDescription("Check adding an employee.")]
         public void AddEmployeeTest()
         {
@@ -76,10 +75,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureTag("Regression")]
+        [AllureTag(AllureTags.Regression)]
         [AllureSeverity(SeverityLevel.critical)]
-        [AllureSuite("Employee Management")]
-        [AllureSubSuite("Employee Management Grid")]
+        [AllureSubSuite(AllureSubSuites.EmployeeManagementGrid)]
         [AllureDescription("Check deleting an employee.")]
         public void DeleteEmployeeTest()
         {
@@ -115,8 +113,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureSuite("Employee Management")]
-        [AllureSubSuite("Employee Management Grid")]
+        [AllureSubSuite(AllureSubSuites.EmployeeManagementGrid)]
         [AllureSeverity(SeverityLevel.minor)]
         [AllureDescription("Cancel employee deletion flow.")]
         public void CancelEmployeeDeletionTest()
@@ -149,10 +146,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureTag("Regression")]
+        [AllureTag(AllureTags.Regression)]
         [AllureSeverity(SeverityLevel.critical)]
-        [AllureSuite("Employee Management")]
-        [AllureSubSuite("Employee Management Grid")]
+        [AllureSubSuite(AllureSubSuites.EmployeeManagementGrid)]
         [AllureDescription("Test editing an existing employee.")]
         public void EditEmployeeTest()
         {
@@ -200,8 +196,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureSuite("Employee Management")]
-        [AllureSubSuite("Edit Employee Form")]
+        [AllureSubSuite(AllureSubSuites.EditEmployeeForm)]
         [AllureSeverity(SeverityLevel.normal)]
         [AllureDescription("Check changing Employee image flow.")]
         public void EditEmployeeImageTest()

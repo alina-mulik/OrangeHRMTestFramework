@@ -1,4 +1,5 @@
 ﻿using Allure.Net.Commons;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OrangeHRMTestFramework.Common.Drivers;
@@ -9,6 +10,7 @@ using OrangeHRMTestFramework.PageObjects.OrangeHRM;
 
 namespace OrangeHRMTestFramework.Tests
 {
+    [AllureNUnit]
     public class BaseTest
     {
         private UserInfo _adminUser;

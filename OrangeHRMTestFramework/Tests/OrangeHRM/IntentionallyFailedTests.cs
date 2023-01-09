@@ -1,16 +1,16 @@
 ﻿using Allure.Net.Commons;
 using NUnit.Allure.Attributes;
-using NUnit.Allure.Core;
 using NUnit.Framework;
 using OrangeHRMTestFramework.Common.Drivers;
 using OrangeHRMTestFramework.Data.Constants;
+using OrangeHRMTestFramework.Data.Constants.AllureConstants;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.PageObjects.OrangeHRM;
 
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
     [TestFixture]
-    [AllureNUnit]
+    [AllureSuite(AllureSuites.Login)]
     public class IntentionallyFailedTests : BaseTest
     {
         [SetUp]
@@ -21,9 +21,8 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
         [Test]
         [AllureSeverity(SeverityLevel.trivial)]
-        [AllureSuite("Login")]
         [AllureDescription("Check footer on login page.")]
-        public void CheckFooterTestFailed()
+        public void CheckFooterOnLoginPageTestFailed()
         {
             // Check Footer text on the Login Page
             var actualFooterText = GenericPages.LoginPage.GetOrangeFooterText();
@@ -32,7 +31,6 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
         [Test]
         [AllureSeverity(SeverityLevel.trivial)]
-        [AllureSuite("Login")]
         public void ResetPasswordTestFailed()
         {
             var randomUserName = RandomHelper.GetRandomString(7);

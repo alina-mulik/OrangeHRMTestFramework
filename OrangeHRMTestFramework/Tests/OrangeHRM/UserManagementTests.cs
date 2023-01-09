@@ -1,8 +1,8 @@
 ﻿using Allure.Net.Commons;
 using NUnit.Allure.Attributes;
-using NUnit.Allure.Core;
 using NUnit.Framework;
 using OrangeHRMTestFramework.Data.Constants;
+using OrangeHRMTestFramework.Data.Constants.AllureConstants;
 using OrangeHRMTestFramework.Data.Enums;
 using OrangeHRMTestFramework.Helpers;
 using OrangeHRMTestFramework.Models;
@@ -13,7 +13,7 @@ using Status = OrangeHRMTestFramework.Data.Enums.Status;
 namespace OrangeHRMTestFramework.Tests.OrangeHRM
 {
     [TestFixture]
-    [AllureNUnit]
+    [AllureSuite(AllureSuites.UserManagemenet)]
     public class UserManagementTests : BaseTest
     {
         private const string EssentialPasswordPart = "abc1!";
@@ -38,10 +38,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureTag("Regression")]
+        [AllureTag(AllureTags.Regression)]
         [AllureSeverity(SeverityLevel.critical)]
-        [AllureSuite("User Managemenet")]
-        [AllureSubSuite("Add User Form")]
+        [AllureSubSuite(AllureSubSuites.AddUserForm)]
         [AllureDescription("Testing adding a new user.")]
         public void AddUserTest()
         {
@@ -85,10 +84,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureTag("Regression")]
+        [AllureTag(AllureTags.Regression)]
         [AllureSeverity(SeverityLevel.critical)]
-        [AllureSuite("User Managemenet")]
-        [AllureSubSuite("User Managemenet Grid")]
+        [AllureSubSuite(AllureSubSuites.UserManagemenetGrid)]
         [AllureDescription("Testing deleting a user.")]
         public void DeleteUserTest()
         {
@@ -118,10 +116,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureTag("Regression")]
+        [AllureTag(AllureTags.Regression)]
         [AllureSeverity(SeverityLevel.normal)]
-        [AllureSuite("User Managemenet")]
-        [AllureSubSuite("User Managemenet Grid")]
+        [AllureSubSuite(AllureSubSuites.UserManagemenetGrid)]
         [AllureDescription("Check User Management filtering using all filters.")]
         public void CheckUserManagementFilteringUsingAllFiltersTest()
         {
@@ -147,8 +144,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
         [Test]
         [AllureSeverity(SeverityLevel.normal)]
-        [AllureSuite("User Managemenet")]
-        [AllureSubSuite("Add User Form")]
+        [AllureSubSuite(AllureSubSuites.AddUserForm)]
         [AllureDescription("Check that all fields are required in Add User form.")]
         public void CheckAllFieldsRequiredWhileAddingUserTest()
         {
@@ -167,10 +163,9 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
         }
 
         [Test]
-        [AllureTag("Regression")]
+        [AllureTag(AllureTags.Regression)]
         [AllureSeverity(SeverityLevel.normal)]
-        [AllureSuite("User Managemenet")]
-        [AllureSubSuite("Add User Form")]
+        [AllureSubSuite(AllureSubSuites.AddUserForm)]
         [AllureDescription("Check that user can't be created with the Username that already exists.")]
         public void UserCantBeCreatedWithUserNameThatAlreadyExistsTest()
         {
@@ -201,8 +196,7 @@ namespace OrangeHRMTestFramework.Tests.OrangeHRM
 
         [Test]
         [AllureSeverity(SeverityLevel.minor)]
-        [AllureSuite("User Managemenet")]
-        [AllureSubSuite("User Managemenet Grid")]
+        [AllureSubSuite(AllureSubSuites.UserManagemenetGrid)]
         [AllureDescription("Check sorting bu Username desc on User Management page.")]
         public void SortUserListByUserNameDescTest()
         {
